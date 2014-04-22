@@ -1,0 +1,10 @@
+{"version":3,
+ "file":
+ "/Users/jkn/dev/projects/diving-into-clojurescript/code/futurejs-wall/web/out/monet/core.js",
+ "sources":["core.cljs"],
+ "lineCount":28,
+ "mappings":
+ ";AAAA;;AAEA,AAAKA,6BACH,iBAAAC,gDAAA,AAAA,oBAAAA,jDAAI,AAAyBC;CAA7BD;;CAAA,IAAAA,0DAAA,AAAA,oBAAAA,vDACI,AAA+BC;CADnCD;;CAAA,IAAAA,uDAAA,AAAA,oBAAAA,pDAEI,AAA4BC;CAFhCD;;CAAA,IAAAA,qDAAA,AAAA,oBAAAA,lDAGI,AAA0BC;CAH9BD;;CAAA,IAAAA,sDAAA,AAAA,oBAAAA,nDAII,AAA2BC;CAJ/BD;;CAKI,4BAAA,VAAKE,UAAU,2BAAA,pBAACC,WAAcD",
+ "names":
+ ["monet.core/animation-frame", "or__3443__auto__", "js/window",
+  "callback", "js/setTimeout"]}
