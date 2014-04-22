@@ -5,6 +5,8 @@
 
 (println "Hello world!")
 
+;; CANVAS
+
 (def window-width (.-innerWidth js/window))
 (def window-height (.-innerHeight js/window))
 
@@ -13,12 +15,33 @@
 (set! (.-width canvas-dom) window-width)
 (set! (.-height canvas-dom) window-height)
 
-(def monet-canvas (canvas/init canvas-dom "2d"))
+(def mc (canvas/init canvas-dom "2d"))
 
-(canvas/add-entity monet-canvas :background
-                   (canvas/entity {:x 0 :y 0 :w window-width :h window-height} ; val
-                                  nil                       ; update function
-                                  (fn [ctx val]             ; draw function
-                                    (-> ctx
-                                        (canvas/fill-style "#aaddff")
-                                        (canvas/fill-rect val)))))
+;; BACKGROUND
+
+(defn draw-background! [ctx v]
+  (-> ctx
+      (canvas/fill-style "#aaddff")
+      (canvas/fill-rect v)))
+
+(canvas/add-entity mc :background
+                   (canvas/entity {:x 0 :y 0
+                                   :w window-width
+                                   :h window-height}
+                                  nil
+                                  draw-background!))
+
+;; TEXT
+
+(defn draw-text! [ctx v]
+  (-> ctx
+      (canvas/fill-style "#ffffff")
+      (canvas/font-style "bold 72pt Monaco")
+      (canvas/text v)))
+
+(canvas/add-entity mc :text
+                   (canvas/entity {:text "FutureJS"
+                                   :x 40
+                                   :y 100}
+                                  nil
+                                  draw-text!))
