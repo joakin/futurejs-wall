@@ -1,6 +1,7 @@
 (ns futurejs-wall.core
   (:require [monet.core :refer [animation-frame]]
-            [monet.canvas :as canvas]))
+            [monet.canvas :as canvas]
+            [futurejs-wall.color :as c]))
 
 (enable-console-print!)
 
@@ -18,25 +19,26 @@
 
 (def mc (canvas/init canvas-dom "2d"))
 
+#_(canvas/stop-updating mc)
+
 ;; BACKGROUND
 
 (defn draw-background! [ctx v]
   (-> ctx
-      (canvas/fill-style (:color v))
+      (canvas/fill-style (c/color->hex (:color v)))
       (canvas/fill-rect v)))
 
 (defn update-background! [{:keys [color] :as e}]
-  (assoc e :color (str "#" (.toString (rand-int 16rFFFFFF) 16)))
-  #_(println e))
+  (assoc e :color (c/soft-random! color))
+  )
 
 (canvas/add-entity mc :background
                    (canvas/entity {:x 0 :y 0
                                    :w window-width
                                    :h window-height
-                                   :color "#aaddff"}
+                                   :color [100 200 255]}
                                   update-background!
                                   draw-background!))
-
 
 ;; TEXT
 
