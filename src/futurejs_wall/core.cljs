@@ -1,5 +1,6 @@
 (ns futurejs-wall.core
-  (:require [monet.canvas :as canvas]))
+  (:require [monet.core :refer [animation-frame]]
+            [monet.canvas :as canvas]))
 
 (enable-console-print!)
 
@@ -45,3 +46,15 @@
                                    :y 100}
                                   nil
                                   draw-text!))
+
+;; ANIMATION
+
+(defn animate []
+  (canvas/update-entity mc :text
+                        #(assoc-in % [:value :text]
+                                   (.getSeconds (js/Date.))))
+  )
+
+((fn render []
+   (animate)
+   (animation-frame render)))
