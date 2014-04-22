@@ -23,20 +23,31 @@
 
 ;; BACKGROUND
 
-(defn draw-background! [ctx v]
-  (-> ctx
-      (canvas/fill-style (c/color->hex (:color v)))
-      (canvas/fill-rect v)))
+(defn draw-background! [ctx xs]
+  (doseq [x xs]
+    (-> ctx
+        (canvas/fill-style (c/color->hex (:color x)))
+        (canvas/fill-rect x))))
 
-(defn update-background! [{:keys [color] :as e}]
-  (assoc e :color (c/soft-random! color))
+(defn update-background! [tiles]
+  (let [update-color #(assoc % :color
+                        (c/soft-random! (:color %)))]
+    (map update-color tiles))
   )
 
+(defn generate-tiles! [w h]
+  (let [size (+ 20 (rand-int 250))
+        cols (.ceil js/Math (/ w size))
+        rows (.ceil js/Math (/ h size))]
+    (for [x (range cols) y (range rows)]
+      {:x (* x size) :y (* y size)
+       :w size :h size
+       :color (map rand-int (repeat 3 255))}
+      )))
+#_(generate-tiles! window-width window-height)
+
 (canvas/add-entity mc :background
-                   (canvas/entity {:x 0 :y 0
-                                   :w window-width
-                                   :h window-height
-                                   :color [100 200 255]}
+                   (canvas/entity (generate-tiles! window-width window-height)
                                   update-background!
                                   draw-background!))
 
