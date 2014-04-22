@@ -29,3 +29,21 @@
   (str "#" (apply str (map int->hex color))))
 
 #_(color->hex (soft-random! [16 2 3]))
+
+(defn make-color-gradient
+  ([fx px] (make-color-gradient fx px 128 127 50))
+  ([fx px c w l]
+   (let [xs (map #(repeat 3 %) (range l))
+         fxs (repeat l fx)
+         pxs (repeat l px)
+         to-color (fn [is fs ps]
+                    (map #(+ (* (.sin js/Math (+ (* % %2) %3)) w) c) is fs ps)
+                    )]
+     (map to-color xs fxs pxs))))
+
+
+#_(do
+    (set! (.-innerHTML js/document.body) "")
+    (doseq [c (make-color-gradient [0.3 0.3 0.3] [0 2 4])]
+      (.write js/document
+              (str "<font color=\"" (color->hex c) "\">&#9608;</font>"))))
