@@ -46,10 +46,15 @@
       )))
 #_(generate-tiles! window-width window-height)
 
-(canvas/add-entity mc :background
-                   (canvas/entity (generate-tiles! window-width window-height)
-                                  update-background!
-                                  draw-background!))
+(defn add-background! []
+  (canvas/add-entity mc :background
+                     (canvas/entity (generate-tiles! window-width window-height)
+                                    update-background!
+                                    draw-background!)))
+
+(add-background!)
+
+(js/setInterval add-background! 2000)
 
 ;; TEXT
 
