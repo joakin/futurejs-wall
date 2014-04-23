@@ -30,7 +30,7 @@
 
 #_(color->hex (soft-random! [16 2 3]))
 
-(defn make-color-gradient
+#_(defn make-color-gradient
   ([fx px] (make-color-gradient fx px 128 127 50))
   ([fx px c w l]
    (let [xs (map #(repeat 3 %) (range l))
